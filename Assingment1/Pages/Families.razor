@@ -1,0 +1,81 @@
+﻿@page "/Families"
+@using Assingment1.Data
+@using Models
+@inject IFamiliesData FamiliesData
+@inject NavigationManager NavManager
+<div class="flex justify-center p-4">
+    <div class="bg-white rounded-lg lg:w-10/12 p-4">
+
+        @if (AllFamilies == null)
+        {
+            <p>
+                <em>Loading...</em>
+            </p>
+        }
+        else if (!AllFamilies.Any())
+        {
+            <p>
+                <em>No Families exist in the system. Please add some.</em>
+            </p>
+        }
+        else
+        {
+            <table class="table border-top-0">
+                <thead class="border-top-0">
+                <tr>
+
+                    <th>Adults</th>
+                    <th>Children</th>
+                    <th>Pets</th>
+                    <th>StreetName</th>
+                    <th>HouseNumber</th>
+                    <th>Remove</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var Fam in AllFamilies)
+                {
+                    <tr>
+                        <td>
+                            <button @onclick="@(() => NavManager.NavigateTo($"/families/adults/{Fam.Id}"))">@Fam.Adults.Count</button>
+                        </td>
+                        <td>@Fam.Children.Count</td>
+                        <td>@Fam.Pets.Count</td>
+                        <td>@Fam.StreetName</td>
+                        <td>@Fam.HouseNumber</td>
+                        <td>
+                            <button @onclick="@(() => RemoveFamily(Fam.Id))">
+                                <i class="trashcan oi oi-trash" style="color: lightgray">
+                                </i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@code
+{
+
+    private IList<Family> AllFamilies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AllFamilies = FamiliesData.GetFamilies();
+        await Task.Delay(100);
+    }
+
+    public void RemoveFamily(int id)
+    {
+        FamiliesData.RemoveFamily(id);
+        Family toRemove = AllFamilies.First(t => t.Id == id);
+
+        AllFamilies.Remove(toRemove);
+
+        StateHasChanged();
+    }
+}

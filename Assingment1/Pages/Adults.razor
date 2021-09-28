@@ -1,0 +1,73 @@
+﻿@page "/Families/Adults/{Id:int}"
+@using Assingment1.Data
+@using Models
+@inject IFamiliesData FamiliesData
+<div class="flex justify-center p-4">
+    <div class="bg-white rounded-lg lg:w-10/12 p-4">
+
+        @if (AllAdults == null)
+        {
+            <p>
+                <em>Loading...</em>
+            </p>
+        }
+        else if (!AllAdults.Any())
+        {
+            <p>
+                <em>No Adults exist in this Family. Please add some.</em>
+            </p>
+        }
+        else
+        {
+            <table class="table border-top-0">
+                <thead class="border-top-0">
+                <tr>
+
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>HairColor</th>
+                    <th>EyeColor</th>
+                    <th>HouseNumber</th>
+                    <th>Remove</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var adult in AllAdults)
+                {
+                    <tr>
+                        <td>
+                            <button @onclick="@(() => NavManager.NavigateTo($"/families/adults/{Fam.Id}"))">@Fam.Adults.Count</button>
+                        </td>
+                        <td>@Fam.Children.Count</td>
+                        <td>@Fam.Pets.Count</td>
+                        <td>@Fam.StreetName</td>
+                        <td>@Fam.HouseNumber</td>
+                        <td>
+                            <button @onclick="@(() => RemoveFamily(Fam.Id))">
+                                <i class="trashcan oi oi-trash" style="color: lightgray">
+                                </i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private IList<Adult> AllAdults;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AllAdults = FamiliesData.GetFamilies().First(f => f.Id == Id).Adults;
+        await Task.Delay(100);
+    }
+
+}
