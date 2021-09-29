@@ -1,0 +1,43 @@
+﻿<CascadingValue Value="this">
+
+    <div>
+        <ul class="nav flex-row border-bottom">
+            <li class="nav-item">
+                <NavLink class="nav-link" href="@GetLink("")" Match="NavLinkMatch.All">
+                    <span class="" aria-hidden="true"></span> Adults
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="@GetLink("Children")" Match="NavLinkMatch.All">
+                    <span class="" aria-hidden="true"></span> Children
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="@GetLink("Pets")" Match="NavLinkMatch.All">
+                    <span class="" aria-hidden="true"></span> Pets
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="@GetLink("Statistic")" Match="NavLinkMatch.All">
+                    <span class="" aria-hidden="true"></span> Statistic
+                </NavLink>
+            </li>
+        </ul>
+    </div>
+</CascadingValue>
+
+@code {
+
+    [CascadingParameter]
+    public FamilyDetailed Layout { get; set; }
+
+    public int Id { get; set; }
+
+
+    public string GetLink(string root)
+    {
+        Id = Layout.Id;
+        return "/Fam/" + Id +"/"+root;
+    }
+
+}

@@ -1,0 +1,18 @@
+﻿.loginForm{
+    width: 308px;
+    font-size: 14px;
+    text-align: center;
+
+}
+button.loginForm{
+    font-size:13px;
+}
+.link{
+    color: #0969da;
+
+}
+.failedLogin{
+    background: #ffebe9;
+    font-size:13px;
+    border: 1px solid #ffa59d;
+}

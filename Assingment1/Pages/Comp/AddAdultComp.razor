@@ -1,0 +1,102 @@
+﻿@using Assingment1.Models
+@using Assingment1.Data
+@inject IFamiliesData FamiliesData
+<button class="btn btn-outline-dark w-full btn-outline-primary" data-toggle="modal" data-target="#myModal">
+    Add
+</button>
+<div class="modal" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Adult</h2>
+                <button type="button" class="btn close" data-dismiss="modal">
+                    <i class="trashcan oi oi-circle-x" style="color: lightgray">
+                    </i>
+                </button>
+            </div>
+            <EditForm Model="@newAdult" OnValidSubmit="@AddNewAdult">
+                <div class="modal-body">
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+                    <ValidationSummary> </ValidationSummary>
+
+                    <div class="flex justify-center">
+                        <div class="lg:w-10/12 bg-white rounded-lg">
+                            <div class="d-flex flex-row w-full pb-2">
+                                <div class="col-6 p-0 pr-1">
+                                    <InputText DisplayName="First Name" placeholder="First Name" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newAdult.FirstName"/>
+
+                                </div>
+                                <div class="col-6 p-0 pl-1">
+                                    <InputText DisplayName="Last Name" placeholder="Last Name" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newAdult.LastName"/>
+                                </div>
+                            </div>
+                            <div class="form-group m-0 pb-2">
+                                <InputText DisplayName="Job Title" placeholder="Job Title" class="bg-gray-100 w-full rounded-lg border-0" type="text"@bind-Value="newAdult.JobTitle.JobTitle"/>
+                            </div>
+                            <div class="d-flex flex-row w-full pb-2">
+                                <div class="col-6 p-0 pr-1">
+                                    <InputText DisplayName="Hair Color" placeholder="Hair Color" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newAdult.HairColor"/>
+
+                                </div>
+                                <div class="col-6 p-0 pl-1">
+                                    <InputText DisplayName="Eye Color" placeholder="Eye Color" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newAdult.EyeColor"/>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row w-full pb-2">
+                                <div class="col-3 p-0 pr-1">
+                                    <InputNumber DisplayName="Age" placeholder="Age" class="bg-gray-100 w-full  rounded-lg border-0" @bind-Value="newAdult.Age"/>
+
+                                </div>
+                                <div class="col-3 p-0 px-1">
+                                    <InputNumber DisplayName="Weight" placeholder="Weight" class="bg-gray-100 w-full rounded-lg border-0" @bind-Value="newAdult.Weight"/>
+
+                                </div>
+                                <div class="col-3 p-0 px-1">
+                                    <InputNumber DisplayName="Height" placeholder="Height" class="bg-gray-100 w-full  rounded-lg border-0" @bind-Value="newAdult.Height"/>
+
+                                </div>
+                                <div class="col-3 p-0 pl-1">
+                                    <InputText DisplayName="Sex" placeholder="Sex" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newAdult.Sex"/>
+                                </div>
+                            </div>
+                            @* <div class="pb-3 form-group"> *@
+                            @*     <InputText DisplayName="Hair Color" placeholder="Hair Color" class="bg-gray-100 w-full p-2 rounded-lg border-0" type="text"@bind-Value="newAdult.HairColor"/> *@
+                            @* </div> *@
+                        </div>
+                    </div>
+
+                    <div class="pb-2 flex justify-center w-full">
+                        <button class="btn btn-outline-dark w-10/12" data-dismiss="model" type="submit">Add</button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public IList<Adult> Adults { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private Adult newAdult = new Adult() {JobTitle = new Job()};
+    private Adult temp;
+
+    [Parameter]
+    public Action StateChnaged { get; set; }
+
+    private void AddNewAdult()
+    {
+        temp = new Adult() {FirstName = newAdult.FirstName, LastName = newAdult.LastName, JobTitle = newAdult.JobTitle, Age = newAdult.Age, EyeColor = newAdult.EyeColor, HairColor = newAdult.HairColor, Height = newAdult.Height, Sex = newAdult.Sex, Weight = newAdult.Weight};
+        //Adults.Add(temp);
+        FamiliesData.AddAdult(temp, Id);
+        StateChnaged.Invoke();
+    }
+
+}

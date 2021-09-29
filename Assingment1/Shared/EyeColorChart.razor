@@ -1,0 +1,47 @@
+﻿@using Assingment1.Models
+
+<RadzenChart ColorScheme="ColorScheme.Divergent">
+    <RadzenDonutSeries Title="" Data="@List" CategoryProperty="Color" ValueProperty="Amount"  >
+        <TitleTemplate>
+            <div class="rz-donut-content">
+                <div>Eye Color</div>
+                <div>distribution</div>
+            </div>
+        </TitleTemplate>
+    </RadzenDonutSeries>
+</RadzenChart>
+
+
+@code {
+
+    [Parameter]
+    public IList<Person> Persons { get; set; }
+
+    private Dictionary<string, int> Colors;
+
+    class DataItem
+    {
+        public string Color { get; set; }
+        public int Amount { get; set; }
+    }
+
+    IList<DataItem> List = new List<DataItem>();
+    protected override async Task OnInitializedAsync()
+    {
+        Colors = new Dictionary<string, int>();
+        foreach (var person in Persons)
+        {
+            if (Colors.ContainsKey(person.EyeColor))
+            {
+                Colors[person.EyeColor] += 1;
+                continue;
+            }
+            Colors.Add(person.EyeColor, 1);
+        }
+        foreach (var key in Colors.Keys)
+        {
+            List.Add(new DataItem {Color = key, Amount = Colors[key]});
+        }
+    }
+
+}

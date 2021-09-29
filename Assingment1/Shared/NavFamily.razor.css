@@ -1,0 +1,9 @@
+﻿.nav-item ::deep a.active {
+    transform: scale(1.1);
+    border-bottom: 2px solid #aaa;}
+
+.nav-item ::deep a:hover {
+    
+    color: rgba( 41, 41, 41, 0.6);
+
+}

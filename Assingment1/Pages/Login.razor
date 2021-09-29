@@ -1,0 +1,62 @@
+﻿@page "/Login"
+@using Assingment1.Auth
+@using Assingment1.Data
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavManager;
+@inject AppState AppState
+
+<div class="flex justify-center  w-full pt-10 ">
+    <div class="loginForm ">
+        @if (_errorMessage != null)
+        {
+            <div class="mb-2 failedLogin p-3 rounded-lg">
+                <p> @_errorMessage</p>
+            </div>
+        }
+        <div class="mb-2 p-3 bg-white rounded-lg">
+            <div class="p-2">
+                <p>
+                    <input class="bg-gray-100 w-full p-2 rounded-lg border-0 " type="text" placeholder="Username" @bind-value="_username"/>
+                </p>
+            </div>
+            <div class="p-2">
+                <p>
+                    <input class="bg-gray-100 w-full p-2 rounded-lg border-0 " type="password" placeholder="Password" @bind-value="_password"/>
+                </p>
+            </div>
+            <div class="p-2 flex justify-evenly">
+                <button class="btn btn-outline-dark w-full" @onclick="PerformLogin" type="submit">Login</button>
+            </div>
+        </div>
+        <div class="p-3 bg-white rounded-lg">
+            <p>
+                New to the website? <button class="link"> Create an Account.</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string _username;
+    private string _password;
+    private string _errorMessage;
+
+    public async Task PerformLogin()
+    {
+        _errorMessage = "";
+        try
+        {
+            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(_username, _password);
+            _username = "";
+            _password = "";
+            NavManager.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            _errorMessage = e.Message;
+        }
+    }
+
+}

@@ -1,0 +1,61 @@
+﻿@page "/Fam/{Id:int}/Pets"
+@using Assingment1.Data
+@using Models
+@inject IFamiliesData FamiliesData
+
+@if (AllPets == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!AllPets.Any())
+{
+    <p>
+        <em>No Pets exist in this Family. Please add some.</em>
+    </p>
+}
+else
+{
+    <table class="table border-top-0">
+        <thead class="border-top-0">
+        <tr>
+            <th class="border-top-0">Name</th>
+            <th class="border-top-0">Species</th>
+            <th class="border-top-0">Age</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var pet in AllPets)
+        {
+            <tr>
+                <td>@pet.Name</td>
+                <td>@pet.Species</td>
+                <td>@pet.Age</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [CascadingParameter]
+    public FamilyDetailed Layout { get; set; }
+
+    private IList<Pet> AllPets;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Layout.Id = Id;
+
+        AllPets = FamiliesData.GetFamilies().First(f => f.Id == Id).Pets;
+        await Task.Delay(100);
+    }
+
+}

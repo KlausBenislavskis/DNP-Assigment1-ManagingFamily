@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Assingment1.Data;
-using Models;
+using Assingment1.Models;
 
 namespace Persistence
 {
@@ -68,6 +68,12 @@ namespace Persistence
 
                 return tmp;
             
+        }
+
+        public void AddAdult(Adult adult, int familyId)
+        {
+            Families.First(f => f.Id == familyId).Adults.Add(adult);
+
         }
         public void AddFamily(Family family)
         {

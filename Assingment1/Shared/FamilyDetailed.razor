@@ -1,0 +1,19 @@
+﻿@inherits LayoutComponentBase
+@layout MainLayout
+<CascadingValue Value="this">
+
+    <div class="flex justify-center p-4">
+        <div class="bg-white rounded-lg lg:w-10/12 p-4">
+            <div class="pb-4">
+                <NavFamily></NavFamily>
+            </div>
+            <div>
+                @Body
+            </div>
+        </div>
+    </div>
+</CascadingValue>
+@code
+{
+    public int Id { get; set; }
+}

@@ -1,4 +1,9 @@
+@using Assingment1.Auth
+@using Assingment1.Data
 @inherits LayoutComponentBase
+@inject NavigationManager NavManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject AppState AppState
 
 <div class="page">
     <div class="sidebar">
@@ -7,7 +12,24 @@
 
     <div class="main bg-gray-100">
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <AuthorizeView>
+                <NotAuthorized>
+                    <div >
+                        <button @onclick="@(() => NavManager.NavigateTo("/login"))" class="btn btn-outline-dark w-full btn-outline-primary login" type="button"> Log In</button>
+                    </div>
+                </NotAuthorized>
+                <Authorized >
+                    <div class="dropdown">
+                        <a class="dropdown-toggle dropDownLogOut" type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @context.User.Identity.Name
+                        </a>
+                        <div class="dropdown-menu dropDownLogOut dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item dropDownLogOut"  @onclick="Logout" href="#">Logout</a>
+                        </div>
+                    </div>
+                </Authorized>
+            </AuthorizeView>
+
         </div>
 
         <div class="content  px-4">
@@ -15,3 +37,17 @@
         </div>
     </div>
 </div>
+
+@code
+{
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    private void Logout()
+    {
+        ((CustomAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+    }
+    
+}

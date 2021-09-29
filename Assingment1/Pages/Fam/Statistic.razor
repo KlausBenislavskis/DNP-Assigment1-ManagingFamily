@@ -1,0 +1,29 @@
+﻿@page "/Fam/{Id:int}/Statistic"
+@using Assingment1.Data
+@using Assingment1.Models
+@inject IFamiliesData FamiliesData
+    <div class="d-flex flex-row w-full justify-around">
+        <div class="col-5">
+            <EyeColorChart Persons="FamiliesData.GetFamilies().First(f => f.Id == Id).GetPersons()"></EyeColorChart>
+        </div>
+        <div class="col-5">
+            <EyeColorChart Persons="FamiliesData.GetFamilies().First(f => f.Id == Id).GetPersons()"></EyeColorChart>
+        </div>
+    </div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [CascadingParameter]
+    public FamilyDetailed Layout { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Layout.Id = Id;
+        await Task.Delay(100);
+    }
+
+}

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Assingment1.Models;
 
-namespace Models {
+namespace Assingment1.Models {
 public class Family {
     
     public int Id { get; set; }
@@ -13,6 +14,13 @@ public class Family {
 
     public Family() {
         Adults = new List<Adult>();     
+    }
+
+    public List<Person> GetPersons()
+    {
+        List<Person> list = new List<Person>(Adults);
+        list.AddRange(Children);
+        return list;
     }
 }
 
