@@ -1,26 +1,14 @@
 [
   {
     "JobTitle": null,
-    "Id": 1,
-    "FirstName": null,
-    "LastName": null,
-    "HairColor": null,
-    "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
-    "Sex": null
-  },
-  {
-    "JobTitle": null,
     "Id": 2,
     "FirstName": null,
     "LastName": null,
     "HairColor": null,
     "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
+    "Age": null,
+    "Weight": null,
+    "Height": null,
     "Sex": null
   },
   {
@@ -30,9 +18,9 @@
     "LastName": null,
     "HairColor": null,
     "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
+    "Age": null,
+    "Weight": null,
+    "Height": null,
     "Sex": null
   },
   {
@@ -42,9 +30,9 @@
     "LastName": null,
     "HairColor": null,
     "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
+    "Age": null,
+    "Weight": null,
+    "Height": null,
     "Sex": null
   },
   {
@@ -54,9 +42,9 @@
     "LastName": null,
     "HairColor": null,
     "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
+    "Age": null,
+    "Weight": null,
+    "Height": null,
     "Sex": null
   },
   {
@@ -66,9 +54,9 @@
     "LastName": null,
     "HairColor": null,
     "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
+    "Age": null,
+    "Weight": null,
+    "Height": null,
     "Sex": null
   },
   {
@@ -78,9 +66,9 @@
     "LastName": null,
     "HairColor": null,
     "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
+    "Age": null,
+    "Weight": null,
+    "Height": null,
     "Sex": null
   },
   {
@@ -90,9 +78,9 @@
     "LastName": null,
     "HairColor": null,
     "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
+    "Age": null,
+    "Weight": null,
+    "Height": null,
     "Sex": null
   },
   {
@@ -102,21 +90,9 @@
     "LastName": null,
     "HairColor": null,
     "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
-    "Sex": null
-  },
-  {
-    "JobTitle": null,
-    "Id": 10,
-    "FirstName": null,
-    "LastName": null,
-    "HairColor": null,
-    "EyeColor": null,
-    "Age": 0,
-    "Weight": 0,
-    "Height": 0,
+    "Age": null,
+    "Weight": null,
+    "Height": null,
     "Sex": null
   }
 ]

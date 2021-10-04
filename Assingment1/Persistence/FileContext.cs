@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using Assingment1.Data;
 using Assingment1.Models;
 
@@ -55,26 +56,35 @@ namespace Persistence
 
         public IList<Family> GetFamilies()
         {
-            
-                List<Family> tmp;
-                if (Families == null)
-                {
-                    tmp = new List<Family>();
-                }
-                else
-                {
-                    tmp = new List<Family>(Families);
-                }
+            List<Family> tmp;
+            if (Families == null)
+            {
+                tmp = new List<Family>();
+            }
+            else
+            {
+                tmp = new List<Family>(Families);
+            }
 
-                return tmp;
-            
+            return tmp;
         }
 
-        public void AddAdult(Adult adult, int familyId)
+        public void AddAdult(Adult pets, int familyId)
         {
-            Families.First(f => f.Id == familyId).Adults.Add(adult);
-
+            Families.First(f => f.Id == familyId).Adults.Add(pets);
         }
+
+        public void AddChild(Child child, int familyId)
+        {
+            Families.First(f => f.Id == familyId).Children.Add(child);
+        }
+
+
+        public void AddPet(Pet pets, int familyId)
+        {
+            Families.First(f => f.Id == familyId).Pets.Add(pets);
+        }
+
         public void AddFamily(Family family)
         {
             int max;
@@ -97,6 +107,73 @@ namespace Persistence
             Family toRemove = Families.First(t => t.Id == id);
             Families.Remove(toRemove);
             SaveChanges();
+        }
+
+        public void RemoveAdult(int familyId, string adultName)
+        {
+            Family family = Families.First(t => t.Id == familyId);
+            Adult toRemove = family.Adults.First(a => a.FirstName == adultName);
+            family.Adults.Remove(toRemove);
+            SaveChanges();
+        }
+
+        public void RemoveChild(int familyId, string childName)
+        {
+            Family family = Families.First(t => t.Id == familyId);
+            Child toRemove = family.Children.First(a => a.FirstName == childName);
+            family.Children.Remove(toRemove);
+            SaveChanges();
+        }
+
+        public void RemovePet(int familyId, string petName)
+        {
+            Family family = Families.First(t => t.Id == familyId);
+            Pet toRemove = family.Pets.First(a => a.Name == petName);
+            family.Pets.Remove(toRemove);
+            SaveChanges();
+        }
+
+        public IList<Child> GetAllChildren()
+        {
+            IList<Child> children = new List<Child>(); 
+            foreach (var family in Families)
+            {
+                foreach (var child in family.Children)
+                {
+                    children.Add(child);
+                }
+            }
+
+            return children;
+        }
+
+        public IList<Adult> GetAllAdults()
+        {
+            IList<Adult> adults = new List<Adult>(); 
+            foreach (var family in Families)
+            {
+                foreach (var adult in family.Adults)
+                {
+                    adults.Add(adult);
+                }
+            }
+
+            return adults;
+        }
+
+
+        public IList<Pet> GetAllPets()
+        {
+            IList<Pet> pets = new List<Pet>(); 
+            foreach (var family in Families)
+            {
+                foreach (var pet in family.Pets)
+                {
+                    pets.Add(pet);
+                }
+            }
+
+            return pets;
         }
     }
 }

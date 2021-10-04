@@ -1,6 +1,7 @@
 ﻿@page "/Fam/{Id:int}/Children"
 @using Assingment1.Data
 @using Models
+@using Assingment1.Pages.Comp
 @inject IFamiliesData FamiliesData
 
 @if (AllChidren == null)
@@ -28,6 +29,11 @@ else
             <th class="border-top-0">Weight</th>
             <th class="border-top-0">Height</th>
             <th class="border-top-0">Sex</th>
+            <AuthorizeView>
+                <Authorized>
+                    <th class="border-top-0">Remove</th>
+                </Authorized>
+            </AuthorizeView>
         </tr>
         </thead>
         <tbody>
@@ -42,12 +48,28 @@ else
                 <td>@Child.Weight</td>
                 <td>@Child.Height</td>
                 <td>@Child.Sex</td>
+                <AuthorizeView>
+                    <Authorized>
+                        <td>
+                            <button @onclick="@(() => RemoveChild(Child.FirstName))">
+                                <i class="trashcan oi oi-trash" style="color: lightgray">
+                                </i>
+                            </button>
+                        </td>
+                    </Authorized>
+                </AuthorizeView>
             </tr>
         }
         </tbody>
     </table>
 }
-
+<AuthorizeView>
+<Authorized>
+    <div class="lg:w-1/12">
+        <AddChildComp Children="AllChidren" Id="Id" StateChnaged="StateHasChanged"></AddChildComp>
+    </div>
+</Authorized>
+</AuthorizeView>
 
 @code {
 
@@ -65,6 +87,12 @@ else
 
         AllChidren = FamiliesData.GetFamilies().First(f => f.Id == Id).Children;
         await Task.Delay(100);
+    }
+
+
+    private void RemoveChild(string childFirstName)
+    {
+        FamiliesData.RemoveChild(Id, childFirstName);
     }
 
 }

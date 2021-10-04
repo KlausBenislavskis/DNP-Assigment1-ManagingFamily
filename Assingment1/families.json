@@ -1,29 +1,5 @@
 [
   {
-    "Id": 1,
-    "StreetName": "Bay Avenue",
-    "HouseNumber": 1,
-    "Adults": [
-      {
-        "JobTitle": {
-          "JobTitle": "Mascot",
-          "Salary": 99821
-        },
-        "Id": 0,
-        "FirstName": "Yasmine",
-        "LastName": "Baxter",
-        "HairColor": "Black",
-        "EyeColor": "Brown",
-        "Age": 58,
-        "Weight": 39.8,
-        "Height": 174,
-        "Sex": "F"
-      }
-    ],
-    "Children": [],
-    "Pets": []
-  },
-  {
     "Id": 2,
     "StreetName": "Innovation Avenue",
     "HouseNumber": 1,
@@ -221,32 +197,6 @@
         "Weight": 16.32,
         "Height": 96,
         "Sex": "F"
-      },
-      {
-        "Interests": [
-          {
-            "Type": "Choir Singing",
-            "Description": "Aka covey super spreader event"
-          },
-          {
-            "Type": "Bowling",
-            "Description": "Balls to the pins"
-          },
-          {
-            "Type": "Chess",
-            "Description": "The poor die first in war"
-          }
-        ],
-        "Pets": [],
-        "Id": 6,
-        "FirstName": "Reyes",
-        "LastName": "Mcclure",
-        "HairColor": "Grey",
-        "EyeColor": "Brown",
-        "Age": 27,
-        "Weight": 60,
-        "Height": 170,
-        "Sex": "M"
       }
     ],
     "Pets": [
@@ -255,12 +205,6 @@
         "Species": "Dog",
         "Name": "Smokey",
         "Age": 7
-      },
-      {
-        "Id": 1,
-        "Species": "Cat",
-        "Name": "Piglet",
-        "Age": 13
       }
     ]
   },
@@ -889,23 +833,7 @@
     "Id": 8,
     "StreetName": "Sycamore Drive",
     "HouseNumber": 1,
-    "Adults": [
-      {
-        "JobTitle": {
-          "JobTitle": "Web Administrator",
-          "Salary": 44759
-        },
-        "Id": 12,
-        "FirstName": "Zavier",
-        "LastName": "Huffman",
-        "HairColor": "Black",
-        "EyeColor": "Brown",
-        "Age": 59,
-        "Weight": 54.4,
-        "Height": 166,
-        "Sex": "M"
-      }
-    ],
+    "Adults": [],
     "Children": [
       {
         "Interests": [

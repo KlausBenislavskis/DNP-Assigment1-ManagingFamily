@@ -40,14 +40,14 @@
                 <tbody>
                 @foreach (var Fam in AllFamilies)
                 {
-                    <tr class="tableRow" @onclick="@(() => NavManager.NavigateTo($"/Fam/{Fam.Id}"))">
-                        <td>
-                            <button >@Fam.Adults.Count</button>
-                        </td>
-                        <td>@Fam.Children.Count</td>
-                        <td>@Fam.Pets.Count</td>
-                        <td>@Fam.StreetName</td>
-                        <td>@Fam.HouseNumber</td>
+                    <tr class="tableRow">
+                        <td @onclick="@(() => NavManager.NavigateTo($"/Fam/{Fam.Id}"))">
+                            @Fam.Adults.Count
+                        </td >
+                        <td @onclick="@(() => NavManager.NavigateTo($"/Fam/{Fam.Id}"))">@Fam.Children.Count</td>
+                        <td @onclick="@(() => NavManager.NavigateTo($"/Fam/{Fam.Id}"))">@Fam.Pets.Count</td>
+                        <td @onclick="@(() => NavManager.NavigateTo($"/Fam/{Fam.Id}"))">@Fam.StreetName</td>
+                        <td @onclick="@(() => NavManager.NavigateTo($"/Fam/{Fam.Id}"))">@Fam.HouseNumber</td>
                         <AuthorizeView>
                             <Authorized>
                                 <td>

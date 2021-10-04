@@ -1,0 +1,27 @@
+﻿@inject Data.IFamiliesData FamiliesData
+<div class="bg-white rounded-lg p-2">
+    <div class="p-2">
+
+        <h1> Pets</h1>
+        <div class="flex justify-content-around align-items-center py-2">
+            <div class="">
+                <div>
+                    <h2>@_pets</h2>
+                </div>
+            </div>
+            <div>
+                <i class="oi oi-bug " style="color: green;width: 100px;height:100px; font-size: 100px">
+                </i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    int _pets;
+    protected override async Task OnInitializedAsync()
+    {
+        _pets = FamiliesData.GetAllPets().Count;
+    }
+}

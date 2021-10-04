@@ -1,0 +1,74 @@
+﻿@using Assingment1.Models
+@using Assingment1.Data
+@inject IFamiliesData FamiliesData
+
+<button class="btn btn-outline-dark w-full btn-outline-primary" data-toggle="modal" data-target="#myModal">
+    Add
+</button>
+<div class="modal" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Pet</h2>
+                <button type="button" class="btn close" data-dismiss="modal">
+                    <i class="trashcan oi oi-circle-x" style="color: lightgray">
+                    </i>
+                </button>
+            </div>
+            <EditForm Model="@_newPet" OnValidSubmit="@AddNewPet">
+                <div class="modal-body">
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+                    <ValidationSummary> </ValidationSummary>
+
+                    <div class="flex justify-center">
+                        <div class="lg:w-10/12 bg-white rounded-lg">
+                            <div class="d-flex flex-row w-full pb-2">
+                                <div class="col-6 p-0 pr-1">
+                                    <InputText DisplayName="Name" placeholder="First Name" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="_newPet.Name"/>
+
+                                </div>
+                                <div class="col-6 p-0 pl-1">
+                                    <InputNumber DisplayName="Age" placeholder="Age" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="_newPet.Age"/>
+                                </div>
+                            </div>
+                            <div class="form-group m-0 pb-2">
+                                <InputText DisplayName="Species" placeholder="Species" class="bg-gray-100 w-full rounded-lg border-0" type="text"@bind-Value="_newPet.Species"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pb-2 flex justify-center w-full">
+                        <button class="btn btn-outline-dark w-10/12" data-dismiss="model" type="submit">Add</button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public IList<Pet> Pets { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private Pet _newPet = new ();
+    private Pet temp;
+
+    [Parameter]
+    public Action StateChnaged { get; set; }
+
+    private void AddNewPet()
+    {
+        temp = new Pet() {Species = _newPet.Species, Age = _newPet.Age, Id = _newPet.Id,Name = _newPet.Name};
+    //Adults.Add(temp);
+        FamiliesData.AddPet(temp, Id);
+        StateChnaged.Invoke();
+    }
+
+}

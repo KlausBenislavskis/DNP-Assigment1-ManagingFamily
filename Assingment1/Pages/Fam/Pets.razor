@@ -1,6 +1,8 @@
 ﻿@page "/Fam/{Id:int}/Pets"
 @using Assingment1.Data
 @using Models
+@using Assingment1.Pages.Comp
+
 @inject IFamiliesData FamiliesData
 
 @if (AllPets == null)
@@ -23,6 +25,11 @@ else
             <th class="border-top-0">Name</th>
             <th class="border-top-0">Species</th>
             <th class="border-top-0">Age</th>
+            <AuthorizeView>
+                <Authorized>
+                    <th class="border-top-0">Remove</th>
+                </Authorized>
+            </AuthorizeView>
 
         </tr>
         </thead>
@@ -33,12 +40,29 @@ else
                 <td>@pet.Name</td>
                 <td>@pet.Species</td>
                 <td>@pet.Age</td>
+                <AuthorizeView>
+                    <Authorized>
+                        <td>
+                            <button @onclick="@(() => RemovePet(pet.Name))">
+                                <i class="trashcan oi oi-trash" style="color: lightgray">
+                                </i>
+                            </button>
+                        </td>
+                    </Authorized>
+                </AuthorizeView>
             </tr>
         }
         </tbody>
     </table>
 }
+<AuthorizeView>
+    <Authorized>
+        <div class="lg:w-1/12">
 
+            <AddPetComp Id="Id" Pets="AllPets" StateChnaged="StateHasChanged"></AddPetComp>
+        </div>
+    </Authorized>
+</AuthorizeView>
 
 @code {
 
@@ -56,6 +80,11 @@ else
 
         AllPets = FamiliesData.GetFamilies().First(f => f.Id == Id).Pets;
         await Task.Delay(100);
+    }
+
+    private void RemovePet(string petName)
+    {
+        FamiliesData.RemovePet(Id, petName);
     }
 
 }

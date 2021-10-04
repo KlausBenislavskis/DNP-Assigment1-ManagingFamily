@@ -1,0 +1,32 @@
+﻿@using Assingment1.Data
+@using Assingment1.Models
+@inject IFamiliesData FamiliesData
+<div class="d-flex flex-row w-full justify-around mt-4">
+    <div class="col-6 bg-white rounded-lg  mr-2 p-2">
+        <EyeColorChart Persons="Persons"></EyeColorChart>
+    </div>
+    <div class="col-6 bg-white rounded-lg  ml-2 p-2">
+        <SexChart Persons="Persons"></SexChart>
+    </div>
+</div>
+
+@code {
+    private IList<Person> Persons;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Persons = new List<Person>();
+        foreach (var fam in FamiliesData.GetFamilies())
+        {
+            foreach (var adult in fam.Adults)
+            {
+                Persons.Add(adult);
+            }
+            foreach (var child in fam.Children)
+            {
+                Persons.Add(child);
+            }
+        }
+    }
+
+}

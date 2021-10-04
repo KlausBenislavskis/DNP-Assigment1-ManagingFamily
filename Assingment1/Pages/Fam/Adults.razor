@@ -29,6 +29,11 @@ else
             <th class="border-top-0">Weight</th>
             <th class="border-top-0">Height</th>
             <th class="border-top-0">Sex</th>
+            <AuthorizeView>
+                <Authorized>
+                    <th class="border-top-0">Remove</th>
+                </Authorized>
+            </AuthorizeView>
         </tr>
         </thead>
         <tbody>
@@ -43,15 +48,28 @@ else
                 <td>@adult.Weight</td>
                 <td>@adult.Height</td>
                 <td>@adult.Sex</td>
-                
+                <AuthorizeView>
+                    <Authorized>
+                        <td>
+                            <button @onclick="@(() => RemoveAdult(@adult.FirstName))">
+                                <i class="trashcan oi oi-trash" style="color: lightgray">
+                                </i>
+                            </button>
+                        </td>
+                    </Authorized>
+                </AuthorizeView>
             </tr>
         }
         </tbody>
     </table>
-    <div class="lg:w-1/12">
-    <AddAdultComp Adults="AllAdults" Id="Id" StateChnaged="StateHasChanged"></AddAdultComp></div>
 }
-
+<AuthorizeView>
+    <Authorized>
+    <div class="lg:w-1/12">
+        <AddAdultComp Adults="AllAdults" Id="Id" StateChnaged="StateHasChanged"></AddAdultComp>
+    </div>
+    </Authorized>
+</AuthorizeView>
 
 @code {
 
@@ -70,4 +88,10 @@ else
         await Task.Delay(100);
     }
 
+    private void RemoveAdult(string name)
+    {
+        FamiliesData.RemoveAdult(Id, name);
+    }
+
 }
+

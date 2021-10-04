@@ -10,13 +10,13 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add Adult</h2>
+                <h2>Add Child</h2>
                 <button type="button" class="btn close" data-dismiss="modal">
                     <i class="trashcan oi oi-circle-x" style="color: lightgray">
                     </i>
                 </button>
             </div>
-            <EditForm Model="@_newAdult" OnValidSubmit="@AddNewAdult">
+            <EditForm Model="@newChild" OnValidSubmit="@AddNewChild">
                 <div class="modal-body">
                     <DataAnnotationsValidator></DataAnnotationsValidator>
                     <ValidationSummary> </ValidationSummary>
@@ -25,40 +25,36 @@
                         <div class="lg:w-10/12 bg-white rounded-lg">
                             <div class="d-flex flex-row w-full pb-2">
                                 <div class="col-6 p-0 pr-1">
-                                    <InputText DisplayName="First Name" placeholder="First Name" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="_newAdult.FirstName"/>
+                                    <InputText DisplayName="First Name" placeholder="First Name" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newChild.FirstName"/>
 
                                 </div>
                                 <div class="col-6 p-0 pl-1">
-                                    <InputText DisplayName="Last Name" placeholder="Last Name" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="_newAdult.LastName"/>
+                                    <InputText DisplayName="Last Name" placeholder="Last Name" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newChild.LastName"/>
                                 </div>
-                            </div>
-                            <div class="form-group m-0 pb-2">
-                                <InputText DisplayName="Job Title" placeholder="Job Title" class="bg-gray-100 w-full rounded-lg border-0" type="text"@bind-Value="_newAdult.JobTitle.JobTitle"/>
                             </div>
                             <div class="d-flex flex-row w-full pb-2">
                                 <div class="col-6 p-0 pr-1">
-                                    <InputText DisplayName="Hair Color" placeholder="Hair Color" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="_newAdult.HairColor"/>
-
+                                    <InputText DisplayName="Hair Color" placeholder="Hair Color" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newChild.HairColor"/>
                                 </div>
                                 <div class="col-6 p-0 pl-1">
-                                    <InputText DisplayName="Eye Color" placeholder="Eye Color" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="_newAdult.EyeColor"/>
+                                    <InputText DisplayName="Eye Color" placeholder="Eye Color" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newChild.EyeColor"/>
                                 </div>
                             </div>
                             <div class="d-flex flex-row w-full pb-2">
                                 <div class="col-3 p-0 pr-1">
-                                    <InputNumber DisplayName="Age" placeholder="Age" class="bg-gray-100 w-full  rounded-lg border-0" @bind-Value="_newAdult.Age"/>
+                                    <InputNumber DisplayName="Age" placeholder="Age" class="bg-gray-100 w-full  rounded-lg border-0" @bind-Value="newChild.Age"/>
 
                                 </div>
                                 <div class="col-3 p-0 px-1">
-                                    <InputNumber DisplayName="Weight" placeholder="Weight" class="bg-gray-100 w-full rounded-lg border-0" @bind-Value="_newAdult.Weight"/>
+                                    <InputNumber DisplayName="Weight" placeholder="Weight" class="bg-gray-100 w-full rounded-lg border-0" @bind-Value="newChild.Weight"/>
 
                                 </div>
                                 <div class="col-3 p-0 px-1">
-                                    <InputNumber DisplayName="Height" placeholder="Height" class="bg-gray-100 w-full  rounded-lg border-0" @bind-Value="_newAdult.Height"/>
+                                    <InputNumber DisplayName="Height" placeholder="Height" class="bg-gray-100 w-full  rounded-lg border-0" @bind-Value="newChild.Height"/>
 
                                 </div>
                                 <div class="col-3 p-0 pl-1">
-                                    <InputText DisplayName="Sex" placeholder="Sex" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="_newAdult.Sex"/>
+                                    <InputText DisplayName="Sex" placeholder="Sex" class="bg-gray-100 w-full  rounded-lg border-0" type="text" @bind-Value="newChild.Sex"/>
                                 </div>
                             </div>
                             @* <div class="pb-3 form-group"> *@
@@ -80,22 +76,22 @@
 @code {
 
     [Parameter]
-    public IList<Adult> Adults { get; set; }
+    public IList<Child> Children { get; set; }
 
     [Parameter]
     public int Id { get; set; }
 
-    private Adult _newAdult = new Adult() {JobTitle = new Job()};
-    private Adult temp;
+    private Child newChild = new Child() {Pets = new List<Adult>(), Interests = new List<Interest>()};
+    private Child temp;
 
     [Parameter]
     public Action StateChnaged { get; set; }
 
-    private void AddNewAdult()
+    private void AddNewChild()
     {
-        temp = new Adult() {FirstName = _newAdult.FirstName, LastName = _newAdult.LastName, JobTitle = _newAdult.JobTitle, Age = _newAdult.Age, EyeColor = _newAdult.EyeColor, HairColor = _newAdult.HairColor, Height = _newAdult.Height, Sex = _newAdult.Sex, Weight = _newAdult.Weight};
+        temp = new Child() {FirstName = newChild.FirstName, LastName = newChild.LastName, Age = newChild.Age, EyeColor = newChild.EyeColor, HairColor = newChild.HairColor, Height = newChild.Height, Sex = newChild.Sex, Weight = newChild.Weight};
         //Adults.Add(temp);
-        FamiliesData.AddAdult(temp, Id);
+        FamiliesData.AddChild(temp, Id);
         StateChnaged.Invoke();
     }
 
