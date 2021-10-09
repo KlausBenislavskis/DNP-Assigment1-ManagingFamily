@@ -72,17 +72,22 @@ namespace Persistence
         public void AddAdult(Adult pets, int familyId)
         {
             Families.First(f => f.Id == familyId).Adults.Add(pets);
+            SaveChanges();
         }
 
         public void AddChild(Child child, int familyId)
         {
             Families.First(f => f.Id == familyId).Children.Add(child);
+            SaveChanges();
+
         }
 
 
         public void AddPet(Pet pets, int familyId)
         {
             Families.First(f => f.Id == familyId).Pets.Add(pets);
+            SaveChanges();
+
         }
 
         public void AddFamily(Family family)

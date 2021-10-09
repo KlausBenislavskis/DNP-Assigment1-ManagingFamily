@@ -1,0 +1,30 @@
+﻿@using Assingment1.Models
+            <div class="py-4">
+                <input class="bg-gray-100 p-2 rounded-lg border-0 " type="text" @oninput="@((arg) => FilterById(arg))" placeholder="Filter by User Id"/>
+            </div>
+@code {
+
+    [Parameter]
+    public IList<Family> Families { get; set; }
+    [Parameter]
+    public IList<Family> FamiliesToShow { get; set; }
+
+    [Parameter]
+    public Action StateChnaged { get; set; }
+    private void FilterById(ChangeEventArgs changeEventArgs)
+    {
+        Console.WriteLine(1);
+        if (changeEventArgs.Value.ToString() != null)
+        {
+            Console.WriteLine(FamiliesToShow.Count);
+
+            FamiliesToShow = Families.Where(f => f.FamilyName.StartsWith(changeEventArgs.Value.ToString())).ToList();
+            StateChnaged.Invoke();
+        }
+        else
+        {
+            FamiliesToShow = Families;
+        }
+    }
+
+}

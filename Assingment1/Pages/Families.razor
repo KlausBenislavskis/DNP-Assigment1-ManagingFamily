@@ -1,12 +1,14 @@
 ﻿@page "/Families"
 @using Assingment1.Data
 @using Models
+@using Assingment1.Pages.Comp
 @inject IFamiliesData FamiliesData
 @inject NavigationManager NavManager
 <div class="flex justify-center p-4">
     <div class="bg-white rounded-lg lg:w-10/12 p-4">
-
-        @if (AllFamilies == null)
+            <div class="py-4">
+                <input class="bg-gray-100 p-2 rounded-lg border-0 " type="text" @oninput="@((arg) => FilterById(arg))" placeholder="Search by Family name"/>
+            </div>        @if (AllFamilies == null)
         {
             <p>
                 <em>Loading...</em>
@@ -23,7 +25,7 @@
             <table class="table border-top-0">
                 <thead class="border-top-0">
                 <tr >
-
+                    <th>Family name</th>
                     <th>Adults</th>
                     <th>Children</th>
                     <th>Pets</th>
@@ -38,9 +40,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (var Fam in AllFamilies)
+                @foreach (var Fam in AllFamiliesToShow)
                 {
                     <tr class="tableRow">
+                        <td @onclick="@(() => NavManager.NavigateTo($"/Fam/{Fam.Id}"))">@Fam.GetFamilyName()</td>
                         <td @onclick="@(() => NavManager.NavigateTo($"/Fam/{Fam.Id}"))">
                             @Fam.Adults.Count
                         </td >
@@ -70,10 +73,12 @@
 {
 
     private IList<Family> AllFamilies;
+    private IList<Family> AllFamiliesToShow;
 
     protected override async Task OnInitializedAsync()
     {
         AllFamilies = FamiliesData.GetFamilies();
+        AllFamiliesToShow = AllFamilies;
         await Task.Delay(100);
     }
 
@@ -85,5 +90,19 @@
         AllFamilies.Remove(toRemove);
 
         StateHasChanged();
+    }
+    private void FilterById(ChangeEventArgs changeEventArgs)
+    {
+        Console.WriteLine(1);
+        if (changeEventArgs.Value.ToString() != null)
+        {
+            Console.WriteLine(AllFamiliesToShow.Count);
+
+            AllFamiliesToShow = AllFamilies.Where(f => f.FamilyName.StartsWith(changeEventArgs.Value.ToString())).ToList();
+        }
+        else
+        {
+            AllFamiliesToShow = AllFamilies;
+        }
     }
 }

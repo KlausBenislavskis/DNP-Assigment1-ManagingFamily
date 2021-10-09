@@ -8,6 +8,6 @@ public class Pet {
     [Required]
     public string Name { get; set; }
     [Required]
-    public int Age { get; set; }
+    public int? Age { get; set; }
 }
 }
