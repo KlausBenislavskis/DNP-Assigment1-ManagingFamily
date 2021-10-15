@@ -19,6 +19,7 @@ namespace Persistence
 
         public FileContext()
         {
+            Console.WriteLine("test");
             Families = File.Exists(familiesFile) ? ReadData<Family>(familiesFile) : new List<Family>();
             Adults = File.Exists(adultsFile) ? ReadData<Adult>(adultsFile) : new List<Adult>();
         }
