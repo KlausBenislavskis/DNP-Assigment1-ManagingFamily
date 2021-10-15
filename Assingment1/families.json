@@ -119,7 +119,8 @@
         "Sex": "F"
       }
     ],
-    "Pets": []
+    "Pets": [],
+    "FamilyName": "Humphrey"
   },
   {
     "Id": 3,
@@ -206,7 +207,8 @@
         "Name": "Smokey",
         "Age": 7
       }
-    ]
+    ],
+    "FamilyName": "Mcclure"
   },
   {
     "Id": 4,
@@ -306,10 +308,16 @@
         ],
         "Pets": [
           {
+            "JobTitle": null,
             "Id": 2,
-            "Species": "Rat",
-            "Name": "Bosley",
-            "Age": 0
+            "FirstName": null,
+            "LastName": null,
+            "HairColor": null,
+            "EyeColor": null,
+            "Age": 0,
+            "Weight": null,
+            "Height": null,
+            "Sex": null
           }
         ],
         "Id": 9,
@@ -357,7 +365,8 @@
         "Sex": "F"
       }
     ],
-    "Pets": []
+    "Pets": [],
+    "FamilyName": "Fitzgerald"
   },
   {
     "Id": 5,
@@ -377,21 +386,6 @@
         "Age": 52,
         "Weight": 56.8,
         "Height": 172,
-        "Sex": "F"
-      },
-      {
-        "JobTitle": {
-          "JobTitle": "Office Clerk",
-          "Salary": 41332
-        },
-        "Id": 8,
-        "FirstName": "Andi",
-        "LastName": "Wells",
-        "HairColor": "Brown",
-        "EyeColor": "Amber",
-        "Age": 42,
-        "Weight": 27.6,
-        "Height": 148,
         "Sex": "F"
       }
     ],
@@ -545,7 +539,8 @@
         "Sex": "M"
       }
     ],
-    "Pets": []
+    "Pets": [],
+    "FamilyName": "Mcintyre"
   },
   {
     "Id": 6,
@@ -569,17 +564,17 @@
       },
       {
         "JobTitle": {
-          "JobTitle": "Casino Host",
-          "Salary": 35445
+          "JobTitle": "Software developer",
+          "Salary": 0
         },
-        "Id": 10,
-        "FirstName": "Lester",
-        "LastName": "Cruz",
-        "HairColor": "White",
-        "EyeColor": "Amber",
-        "Age": 39,
-        "Weight": 126.2,
-        "Height": 179,
+        "Id": null,
+        "FirstName": "Klaus",
+        "LastName": "Benislavskis",
+        "HairColor": "Brown",
+        "EyeColor": "Brown",
+        "Age": 20,
+        "Weight": 80,
+        "Height": 180,
         "Sex": "M"
       }
     ],
@@ -601,10 +596,16 @@
         ],
         "Pets": [
           {
+            "JobTitle": null,
             "Id": 3,
-            "Species": "Rat",
-            "Name": "Goober",
-            "Age": 2
+            "FirstName": null,
+            "LastName": null,
+            "HairColor": null,
+            "EyeColor": null,
+            "Age": 2,
+            "Weight": null,
+            "Height": null,
+            "Sex": null
           }
         ],
         "Id": 17,
@@ -634,10 +635,16 @@
         ],
         "Pets": [
           {
+            "JobTitle": null,
             "Id": 4,
-            "Species": "Rat",
-            "Name": "Remy",
-            "Age": 2
+            "FirstName": null,
+            "LastName": null,
+            "HairColor": null,
+            "EyeColor": null,
+            "Age": 2,
+            "Weight": null,
+            "Height": null,
+            "Sex": null
           }
         ],
         "Id": 18,
@@ -679,42 +686,17 @@
         "Weight": 69.2,
         "Height": 163,
         "Sex": "M"
-      },
-      {
-        "Interests": [
-          {
-            "Type": "Bike Riding",
-            "Description": "I like to ride my bicicle"
-          },
-          {
-            "Type": "Racing Cars",
-            "Description": "Drive super duper fast"
-          },
-          {
-            "Type": "Scout",
-            "Description": "Gotta get all the emblems"
-          }
-        ],
-        "Pets": [],
-        "Id": 20,
-        "FirstName": "Donte",
-        "LastName": "Cruz",
-        "HairColor": "Black",
-        "EyeColor": "Blue",
-        "Age": 17,
-        "Weight": 83.4,
-        "Height": 181,
-        "Sex": "M"
       }
     ],
     "Pets": [
       {
-        "Id": 5,
+        "Id": 0,
         "Species": "Dog",
-        "Name": "Dodger",
-        "Age": 0
+        "Name": "Odri",
+        "Age": 12
       }
-    ]
+    ],
+    "FamilyName": "Cruz"
   },
   {
     "Id": 7,
@@ -777,10 +759,16 @@
         ],
         "Pets": [
           {
+            "JobTitle": null,
             "Id": 6,
-            "Species": "Rat",
-            "Name": "Duke",
-            "Age": 0
+            "FirstName": null,
+            "LastName": null,
+            "HairColor": null,
+            "EyeColor": null,
+            "Age": 0,
+            "Weight": null,
+            "Height": null,
+            "Sex": null
           }
         ],
         "Id": 22,
@@ -827,7 +815,8 @@
         "Name": "Chessie",
         "Age": 2
       }
-    ]
+    ],
+    "FamilyName": "Salt"
   },
   {
     "Id": 8,
@@ -892,169 +881,7 @@
         "Sex": "F"
       }
     ],
-    "Pets": []
-  },
-  {
-    "Id": 9,
-    "StreetName": "Hazlett Avenue",
-    "HouseNumber": 1,
-    "Adults": [
-      {
-        "JobTitle": {
-          "JobTitle": "Science Teacher",
-          "Salary": 55346
-        },
-        "Id": 13,
-        "FirstName": "Arley",
-        "LastName": "Vaughn",
-        "HairColor": "Black",
-        "EyeColor": "Brown",
-        "Age": 33,
-        "Weight": 55.4,
-        "Height": 171,
-        "Sex": "M"
-      }
-    ],
-    "Children": [
-      {
-        "Interests": [
-          {
-            "Type": "Comic Books",
-            "Description": "Cartoons are for children, comics are for adults"
-          },
-          {
-            "Type": "Racing Cars",
-            "Description": "Drive super duper fast"
-          },
-          {
-            "Type": "Reading",
-            "Description": "Expand your horizon "
-          },
-          {
-            "Type": "Harry Potter",
-            "Description": "Slightly more narrow than book reading"
-          }
-        ],
-        "Pets": [],
-        "Id": 26,
-        "FirstName": "Fisher",
-        "LastName": "Vaughn",
-        "HairColor": "Black",
-        "EyeColor": "Brown",
-        "Age": 2,
-        "Weight": 16.6,
-        "Height": 78,
-        "Sex": "M"
-      },
-      {
-        "Interests": [
-          {
-            "Type": "Clay Modelling",
-            "Description": "Another ashtray?"
-          }
-        ],
-        "Pets": [],
-        "Id": 27,
-        "FirstName": "Noelia",
-        "LastName": "Vaughn",
-        "HairColor": "Blue",
-        "EyeColor": "Brown",
-        "Age": 13,
-        "Weight": 24.14,
-        "Height": 137,
-        "Sex": "F"
-      },
-      {
-        "Interests": [
-          {
-            "Type": "Reading",
-            "Description": "Expand your horizon "
-          },
-          {
-            "Type": "Barbie",
-            "Description": "Dolls with impossible body standards"
-          },
-          {
-            "Type": "Mountain Biking",
-            "Description": "I like to ride my bicicle up hill"
-          }
-        ],
-        "Pets": [],
-        "Id": 28,
-        "FirstName": "Anthony",
-        "LastName": "Vaughn",
-        "HairColor": "Brown",
-        "EyeColor": "Blue",
-        "Age": 13,
-        "Weight": 48.2,
-        "Height": 133,
-        "Sex": "M"
-      },
-      {
-        "Interests": [
-          {
-            "Type": "Roller Blading",
-            "Description": "Shoes with wheels"
-          },
-          {
-            "Type": "Frozen",
-            "Description": "Can we let this one go?"
-          },
-          {
-            "Type": "Lego",
-            "Description": "Deathtrap in the night"
-          }
-        ],
-        "Pets": [],
-        "Id": 29,
-        "FirstName": "Max",
-        "LastName": "Vaughn",
-        "HairColor": "Grey",
-        "EyeColor": "Brown",
-        "Age": 4,
-        "Weight": 40.8,
-        "Height": 117,
-        "Sex": "M"
-      },
-      {
-        "Interests": [
-          {
-            "Type": "Fishing",
-            "Description": "Mostly just hiding from the wife"
-          },
-          {
-            "Type": "Hockey",
-            "Description": "Not the one on ice"
-          },
-          {
-            "Type": "Tractors",
-            "Description": "My nephew loves these"
-          },
-          {
-            "Type": "Ballet",
-            "Description": "Classic danse on your toes"
-          },
-          {
-            "Type": "Horseback Riding",
-            "Description": "Riding horses, on their backs, where else?"
-          },
-          {
-            "Type": "Lego",
-            "Description": "Deathtrap in the night"
-          }
-        ],
-        "Pets": [],
-        "Id": 30,
-        "FirstName": "Eitan",
-        "LastName": "Vaughn",
-        "HairColor": "Black",
-        "EyeColor": "Blue",
-        "Age": 15,
-        "Weight": 94.2,
-        "Height": 160,
-        "Sex": "M"
-      }
-    ],
-    "Pets": []
+    "Pets": [],
+    "FamilyName": "Huffman"
   }
 ]
