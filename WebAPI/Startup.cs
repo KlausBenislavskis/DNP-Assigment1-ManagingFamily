@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Persistence;
+using WebAPI.Data;
 
 namespace WebAPI
 {
@@ -28,6 +30,7 @@ namespace WebAPI
         {
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "WebAPI", Version = "v1"}); });
+            //services.AddSingleton<IFamiliesData, FileContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
