@@ -87,11 +87,12 @@
     [Parameter]
     public Action StateChnaged { get; set; }
 
-    private void AddNewChild()
+    private async void AddNewChild()
     {
         temp = new Child() {FirstName = newChild.FirstName, LastName = newChild.LastName, Age = newChild.Age, EyeColor = newChild.EyeColor, HairColor = newChild.HairColor, Height = newChild.Height, Sex = newChild.Sex, Weight = newChild.Weight};
         //Adults.Add(temp);
-        FamiliesData.AddChild(temp, Id);
+        
+        Children.Add(await FamiliesData.AddChild(temp, Id));
         StateChnaged.Invoke();
     }
 

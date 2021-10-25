@@ -26,7 +26,7 @@ namespace Assingment1
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<IFamiliesData, FileContext>();
+            services.AddSingleton<IFamiliesData, FamilyDataRest>();
             services.AddScoped<IUserService, InMemoryUserService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
             services.AddSingleton<AppState>();

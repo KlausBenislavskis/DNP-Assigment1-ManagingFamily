@@ -64,11 +64,11 @@ else
     </table>
 }
 <AuthorizeView>
-<Authorized>
-    <div class="lg:w-1/12">
-        <AddChildComp Children="AllChidren" Id="Id" StateChnaged="StateHasChanged"></AddChildComp>
-    </div>
-</Authorized>
+    <Authorized>
+        <div class="lg:w-1/12">
+            <AddChildComp Children="AllChidren" Id="Id" StateChnaged="StateHasChanged"></AddChildComp>
+        </div>
+    </Authorized>
 </AuthorizeView>
 
 @code {
@@ -85,14 +85,15 @@ else
     {
         Layout.Id = Id;
 
-        AllChidren = FamiliesData.GetFamilies().First(f => f.Id == Id).Children;
+        AllChidren = (await FamiliesData.GetFamilies()).First(f => f.Id == Id).Children;
         await Task.Delay(100);
     }
 
 
-    private void RemoveChild(string childFirstName)
+    private async void RemoveChild(string childFirstName)
     {
         FamiliesData.RemoveChild(Id, childFirstName);
+        AllChidren.Remove(AllChidren.First(a => a.FirstName == childFirstName));
     }
 
 }

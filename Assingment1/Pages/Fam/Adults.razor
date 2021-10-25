@@ -84,13 +84,14 @@ else
     protected override async Task OnInitializedAsync()
     {
         Layout.Id = Id;
-        AllAdults = FamiliesData.GetFamilies().First(f => f.Id == Id).Adults;
+        AllAdults = (await FamiliesData.GetFamilies()).First(f => f.Id == Id).Adults;
         await Task.Delay(100);
     }
 
     private void RemoveAdult(string name)
     {
         FamiliesData.RemoveAdult(Id, name);
+        AllAdults.Remove(AllAdults.First(a => a.FirstName == name));
     }
 
 }

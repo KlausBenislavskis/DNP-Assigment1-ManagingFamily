@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,7 +20,6 @@ namespace Persistence
 
         public FileContext()
         {
-            Console.WriteLine("test");
             Families = File.Exists(familiesFile) ? ReadData<Family>(familiesFile) : new List<Family>();
             Adults = File.Exists(adultsFile) ? ReadData<Adult>(adultsFile) : new List<Adult>();
         }
@@ -71,28 +70,31 @@ namespace Persistence
             return tmp;
         }
 
-        public void AddAdult(Adult pets, int familyId)
+
+
+        public async Task<Adult> AddAdult(Adult adult, int familyId)
         {
-            Families.First(f => f.Id == familyId).Adults.Add(pets);
+            Families.First(f => f.Id == familyId).Adults.Add(adult);
             SaveChanges();
+            return adult;
         }
 
-        public void AddChild(Child child, int familyId)
+        public async Task<Child> AddChild(Child child, int familyId)
         {
             Families.First(f => f.Id == familyId).Children.Add(child);
             SaveChanges();
-
+            return child;
         }
 
 
-        public void AddPet(Pet pets, int familyId)
+        public async Task<Pet> AddPet(Pet pet, int familyId)
         {
-            Families.First(f => f.Id == familyId).Pets.Add(pets);
+            Families.First(f => f.Id == familyId).Pets.Add(pet);
             SaveChanges();
-
+            return pet;
         }
 
-        public void AddFamily(Family family)
+        public async Task<Family> AddFamily(Family family)
         {
             int max;
             if (Families.Count > 0)
@@ -107,18 +109,37 @@ namespace Persistence
             family.Id = (++max);
             Families.Add(family);
             SaveChanges();
+            return family;
         }
 
-        public void RemoveFamily(int id)
+        public async void RemoveFamily(int? id)
         {
-            Family toRemove = Families.First(t => t.Id == id);
-            Families.Remove(toRemove);
-            SaveChanges();
+            if (id == null)
+            {
+                Families.Clear();
+                return;
+            }
+
+            try
+            {
+                Family toRemove = Families.First(t => t.Id == id);
+                Families.Remove(toRemove);
+                SaveChanges();
+            }catch (Exception)
+            {
+                
+            }
         }
 
         public void RemoveAdult(int familyId, string adultName)
         {
             Family family = Families.First(t => t.Id == familyId);
+            if (adultName == null)
+            {
+                family.Adults.Clear();
+                return;
+            }
+
             Adult toRemove = family.Adults.First(a => a.FirstName == adultName);
             family.Adults.Remove(toRemove);
             SaveChanges();
@@ -127,6 +148,7 @@ namespace Persistence
         public void RemoveChild(int familyId, string childName)
         {
             Family family = Families.First(t => t.Id == familyId);
+            Console.WriteLine(childName);
             Child toRemove = family.Children.First(a => a.FirstName == childName);
             family.Children.Remove(toRemove);
             SaveChanges();
@@ -142,7 +164,7 @@ namespace Persistence
 
         public IList<Child> GetAllChildren()
         {
-            IList<Child> children = new List<Child>(); 
+            IList<Child> children = new List<Child>();
             foreach (var family in Families)
             {
                 foreach (var child in family.Children)
@@ -156,7 +178,7 @@ namespace Persistence
 
         public IList<Adult> GetAllAdults()
         {
-            IList<Adult> adults = new List<Adult>(); 
+            IList<Adult> adults = new List<Adult>();
             foreach (var family in Families)
             {
                 foreach (var adult in family.Adults)
@@ -171,7 +193,7 @@ namespace Persistence
 
         public IList<Pet> GetAllPets()
         {
-            IList<Pet> pets = new List<Pet>(); 
+            IList<Pet> pets = new List<Pet>();
             foreach (var family in Families)
             {
                 foreach (var pet in family.Pets)

@@ -78,13 +78,15 @@ else
     {
         Layout.Id = Id;
 
-        AllPets = FamiliesData.GetFamilies().First(f => f.Id == Id).Pets;
+        AllPets = (await FamiliesData.GetFamilies()).First(f => f.Id == Id).Pets;
+        
         await Task.Delay(100);
     }
 
     private void RemovePet(string petName)
     {
         FamiliesData.RemovePet(Id, petName);
+        AllPets.Remove(AllPets.First(p => p.Name == petName));
     }
 
 }

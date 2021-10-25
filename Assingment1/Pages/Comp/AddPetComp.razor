@@ -63,11 +63,11 @@
     [Parameter]
     public Action StateChnaged { get; set; }
 
-    private void AddNewPet()
+    private async void AddNewPet()
     {
         temp = new Pet() {Species = _newPet.Species, Age = _newPet.Age, Id = _newPet.Id,Name = _newPet.Name};
     //Adults.Add(temp);
-        FamiliesData.AddPet(temp, Id);
+        Pets.Add(await FamiliesData.AddPet(temp, Id));
         StateChnaged.Invoke();
     }
 

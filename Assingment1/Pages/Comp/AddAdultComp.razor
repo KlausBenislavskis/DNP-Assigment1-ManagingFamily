@@ -1,6 +1,8 @@
 ﻿@using Assingment1.Models
 @using Assingment1.Data
 @inject IFamiliesData FamiliesData
+@inject NavigationManager uriHelper;
+
 <button class="btn btn-outline-dark w-full btn-outline-primary" data-toggle="modal" data-target="#myModal">
     Add
 </button>
@@ -91,12 +93,13 @@
     [Parameter]
     public Action StateChnaged { get; set; }
 
-    private void AddNewAdult()
+    private async void AddNewAdult()
     {
         temp = new Adult() {FirstName = _newAdult.FirstName, LastName = _newAdult.LastName, JobTitle = _newAdult.JobTitle, Age = _newAdult.Age, EyeColor = _newAdult.EyeColor, HairColor = _newAdult.HairColor, Height = _newAdult.Height, Sex = _newAdult.Sex, Weight = _newAdult.Weight};
         //Adults.Add(temp);
-        FamiliesData.AddAdult(temp, Id);
+        Adults.Add(await FamiliesData.AddAdult(temp, Id));
         StateChnaged.Invoke();
+
     }
 
 }

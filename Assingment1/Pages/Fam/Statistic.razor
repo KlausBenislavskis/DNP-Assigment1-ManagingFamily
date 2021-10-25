@@ -4,10 +4,10 @@
 @inject IFamiliesData FamiliesData
     <div class="d-flex flex-row w-full justify-around">
         <div class="col-5">
-            <EyeColorChart Persons="FamiliesData.GetFamilies().First(f => f.Id == Id).GetPersons()"></EyeColorChart>
+            <EyeColorChart Persons="Persons"></EyeColorChart>
         </div>
         <div class="col-5">
-            <SexChart Persons="FamiliesData.GetFamilies().First(f => f.Id == Id).GetPersons()"></SexChart>
+            <SexChart Persons="Persons"></SexChart>
         </div>
     </div>
 
@@ -16,14 +16,16 @@
     [Parameter]
     public int Id { get; set; }
 
+    public IList<Person> Persons;
     [CascadingParameter]
     public FamilyDetailed Layout { get; set; }
 
 
     protected override async Task OnInitializedAsync()
     {
+        Persons = new List<Person>();
         Layout.Id = Id;
-        await Task.Delay(100);
+        Persons = (await FamiliesData.GetFamily(Id.ToString())).GetPersons();
     }
 
 }

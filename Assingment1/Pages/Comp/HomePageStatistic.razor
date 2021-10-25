@@ -16,8 +16,11 @@
     protected override async Task OnInitializedAsync()
     {
         Persons = new List<Person>();
-        foreach (var fam in FamiliesData.GetFamilies())
-        {
+        Console.WriteLine("here1");
+        IList<Family> families = await FamiliesData.GetFamilies();
+        foreach (var fam in families )
+        {        Console.WriteLine("here2");
+
             foreach (var adult in fam.Adults)
             {
                 Persons.Add(adult);
@@ -26,7 +29,10 @@
             {
                 Persons.Add(child);
             }
-        }
-    }
+            Console.WriteLine("here3");
 
+        }
+        Console.WriteLine("here");
+        StateHasChanged();
+    }
 }

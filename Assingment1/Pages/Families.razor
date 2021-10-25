@@ -77,7 +77,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        AllFamilies = FamiliesData.GetFamilies();
+        AllFamilies = await FamiliesData.GetFamilies();
         AllFamiliesToShow = AllFamilies;
         await Task.Delay(100);
     }

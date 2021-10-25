@@ -21,6 +21,6 @@
     int _adults;
     protected override async Task OnInitializedAsync()
     {
-        _adults = FamiliesData.GetAllAdults().Count;
+        _adults = (await FamiliesData.GetAllAdults()).Count;
     }
 }

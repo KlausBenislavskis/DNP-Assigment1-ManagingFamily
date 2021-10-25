@@ -20,6 +20,6 @@
     int _children;
     protected override async Task OnInitializedAsync()
     {
-        _children = FamiliesData.GetAllChildren().Count;
+        _children = (await FamiliesData.GetAllChildren()).Count;
     }
 }

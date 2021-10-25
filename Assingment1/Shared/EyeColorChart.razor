@@ -28,6 +28,11 @@
     IList<DataItem> List = new List<DataItem>();
     protected override async Task OnInitializedAsync()
     {
+         while (Persons.Count == 0)
+        {       
+            await Task.Delay(25);
+        }
+        Console.WriteLine(Persons.Count + " This many persones");
         Colors = new Dictionary<string, int>();
         foreach (var person in Persons)
         {

@@ -22,6 +22,6 @@
     int _pets;
     protected override async Task OnInitializedAsync()
     {
-        _pets = FamiliesData.GetAllPets().Count;
+        _pets =  (await FamiliesData.GetAllPets()).Count;
     }
 }
