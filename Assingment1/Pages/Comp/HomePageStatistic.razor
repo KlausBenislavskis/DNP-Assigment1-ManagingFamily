@@ -20,19 +20,24 @@
         IList<Family> families = await FamiliesData.GetFamilies();
         foreach (var fam in families )
         {        Console.WriteLine("here2");
-
+            if (fam.Adults !=null)
+            {
+                
+            
             foreach (var adult in fam.Adults)
             {
                 Persons.Add(adult);
             }
+            }
+            if (fam.Adults !=null)
+            {
             foreach (var child in fam.Children)
             {
                 Persons.Add(child);
             }
-            Console.WriteLine("here3");
+            }
 
         }
-        Console.WriteLine("here");
         StateHasChanged();
     }
 }

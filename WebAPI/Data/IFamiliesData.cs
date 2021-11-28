@@ -6,10 +6,9 @@ namespace WebAPI.Data
 {
     public interface IFamiliesData
     {
-        void SaveChanges();
         Task<IList<Family>> GetFamilies();
         Task<Family> AddFamily(Family family);
-        void RemoveFamily(int? id);
+        void RemoveFamily(int id);
         Task<Adult> AddAdult(Adult adult, int familyId);
         Task<Child> AddChild(Child child, int familyId);
         Task<Pet> AddPet(Pet pet, int familyId);

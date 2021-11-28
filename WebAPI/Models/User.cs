@@ -1,5 +1,6 @@
 ﻿namespace WebAPI.Models {
-    public class User {
+    public class User
+    {
         public string UserName { get; set; }
         public string Domain { get; set; }
         public string City { get; set; }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Assingment1.Models;
 
 namespace Assingment1.Models
@@ -22,6 +23,8 @@ namespace Assingment1.Models
         public Family()
         {
             Adults = new List<Adult>();
+            Children = new List<Child>();
+            Pets = new List<Pet>();
         }
 
         public List<Person> GetPersons()
@@ -33,12 +36,27 @@ namespace Assingment1.Models
 
         public string GetFamilyName()
         {
-            if (Adults.Count > 0)
+            if (Adults == null)
+            {
+                Adults = new List<Adult>();
+
+            }
+
+            if (Children == null)
+            {
+                Children = new List<Child>();
+            }
+
+            if (Pets == null)
+            {
+                Pets = new List<Pet>();
+            }
+            if (Adults.Any())
             {
                 return Adults[0].LastName;
             }
 
-            if (Children.Count > 0)
+            if (Children.Any())
             {
                 return Children[0].LastName;
             }

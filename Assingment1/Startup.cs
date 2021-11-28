@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Assingment1.Data;
 using Microsoft.AspNetCore.Components.Authorization;
-using Persistence;
+using Assingment1.Persistence;
 
 namespace Assingment1
 {

@@ -23,6 +23,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pet>>> Get([FromQuery] string name, [FromRoute] int familyId)
         {
+            Console.WriteLine("Recieved");
             Family family = (await Data.GetFamilies()).First(f => f.Id == familyId);
 
             IList<Pet> pet;

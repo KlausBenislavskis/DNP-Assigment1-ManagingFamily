@@ -5,101 +5,56 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
+using WebAPI.DataAccess;
 using WebAPI.Models;
 
 namespace Persistence
 {
     public class FileContext : IFamiliesData
     {
-        public IList<Family> Families { get; private set; }
-        public IList<Adult> Adults { get; private set; }
-
-        private readonly string familiesFile = "families.json";
-        private readonly string adultsFile = "adults.json";
-
-        public FileContext()
-        {
-            Families = File.Exists(familiesFile) ? ReadData<Family>(familiesFile) : new List<Family>();
-            Adults = File.Exists(adultsFile) ? ReadData<Adult>(adultsFile) : new List<Adult>();
-        }
-
-        private IList<T> ReadData<T>(string s)
-        {
-            using (var jsonReader = File.OpenText(familiesFile))
-            {
-                return JsonSerializer.Deserialize<List<T>>(jsonReader.ReadToEnd());
-            }
-        }
-
-        public void SaveChanges()
-        {
-            // storing families
-            string jsonFamilies = JsonSerializer.Serialize(Families, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
-            using (StreamWriter outputFile = new StreamWriter(familiesFile, false))
-            {
-                outputFile.Write(jsonFamilies);
-            }
-
-            // storing persons
-            string jsonAdults = JsonSerializer.Serialize(Adults, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
-            using (StreamWriter outputFile = new StreamWriter(adultsFile, false))
-            {
-                outputFile.Write(jsonAdults);
-            }
-        }
-
         public async Task<IList<Family>> GetFamilies()
         {
-            List<Family> tmp;
-            if (Families == null)
-            {
-                tmp = new List<Family>();
-            }
-            else
-            {
-                tmp = new List<Family>(Families);
-            }
+            using FamilyContext dbContext = new FamilyContext();
 
-            return tmp;
+            return dbContext.Families.Include(d => d.Adults).Include(d => d.Pets).Include(d => d.Children).ToList();
         }
-
 
 
         public async Task<Adult> AddAdult(Adult adult, int familyId)
         {
-            Families.First(f => f.Id == familyId).Adults.Add(adult);
-            SaveChanges();
+            using FamilyContext dbContext = new FamilyContext();
+            dbContext.Families.First(f => f.Id == familyId).Adults.Add(adult);
+            await dbContext.SaveChangesAsync();
             return adult;
         }
 
         public async Task<Child> AddChild(Child child, int familyId)
         {
-            Families.First(f => f.Id == familyId).Children.Add(child);
-            SaveChanges();
+            using FamilyContext dbContext = new FamilyContext();
+            dbContext.Families.First(f => f.Id == familyId).Children.Add(child);
+            await dbContext.SaveChangesAsync();
             return child;
         }
 
 
         public async Task<Pet> AddPet(Pet pet, int familyId)
         {
-            Families.First(f => f.Id == familyId).Pets.Add(pet);
-            SaveChanges();
+            using FamilyContext dbContext = new FamilyContext();
+            dbContext.Families.First(f => f.Id == familyId).Pets.Add(pet);
+            Console.WriteLine(dbContext.Families.First(f => f.Id == familyId).Pets.Count() + " count");
+            await dbContext.SaveChangesAsync();
             return pet;
         }
 
         public async Task<Family> AddFamily(Family family)
         {
+            using FamilyContext dbContext = new FamilyContext();
             int max;
-            if (Families.Count > 0)
+            if (dbContext.Families.Any())
             {
-                max = Families.Max(Family => Family.Id);
+                max = dbContext.Families.Max(Family => Family.Id);
             }
             else
             {
@@ -107,33 +62,24 @@ namespace Persistence
             }
 
             family.Id = (++max);
-            Families.Add(family);
-            SaveChanges();
+            await dbContext.Families.AddAsync(family);
+            await dbContext.SaveChangesAsync();
             return family;
         }
 
-        public async void RemoveFamily(int? id)
+        public async void RemoveFamily(int id)
         {
-            if (id == null)
-            {
-                Families.Clear();
-                return;
-            }
-
-            try
-            {
-                Family toRemove = Families.First(t => t.Id == id);
-                Families.Remove(toRemove);
-                SaveChanges();
-            }catch (Exception)
-            {
-                
-            }
+            using FamilyContext dbContext = new FamilyContext();
+            Family toRemove = dbContext.Families.First(t => t.Id == id);
+            dbContext.Families.Remove(toRemove);
+            await dbContext.SaveChangesAsync();
         }
 
-        public void RemoveAdult(int familyId, string adultName)
+        public async void RemoveAdult(int familyId, string adultName)
         {
-            Family family = Families.First(t => t.Id == familyId);
+            using FamilyContext dbContext = new FamilyContext();
+
+            Family family = dbContext.Families.Include(d => d.Adults).Include(d => d.Pets).Include(d => d.Children).First(t => t.Id == familyId);
             if (adultName == null)
             {
                 family.Adults.Clear();
@@ -141,31 +87,36 @@ namespace Persistence
             }
 
             Adult toRemove = family.Adults.First(a => a.FirstName == adultName);
-            family.Adults.Remove(toRemove);
-            SaveChanges();
+            dbContext.Families.Include(d => d.Adults).Include(d => d.Pets).Include(d => d.Children).First(t => t.Id == familyId).Adults.Remove(toRemove);
+            await dbContext.SaveChangesAsync();
         }
 
-        public void RemoveChild(int familyId, string childName)
+        public async void RemoveChild(int familyId, string childName)
         {
-            Family family = Families.First(t => t.Id == familyId);
+            using FamilyContext dbContext = new FamilyContext();
+
+            Family family = dbContext.Families.Include(d => d.Adults).Include(d => d.Pets).Include(d => d.Children).First(t => t.Id == familyId);
             Console.WriteLine(childName);
             Child toRemove = family.Children.First(a => a.FirstName == childName);
-            family.Children.Remove(toRemove);
-            SaveChanges();
+            dbContext.Families.Include(d => d.Adults).Include(d => d.Pets).Include(d => d.Children).First(t => t.Id == familyId).Children.Remove(toRemove);
+            await dbContext.SaveChangesAsync();
         }
 
-        public void RemovePet(int familyId, string petName)
+        public async void RemovePet(int familyId, string petName)
         {
-            Family family = Families.First(t => t.Id == familyId);
+            using FamilyContext dbContext = new FamilyContext();
+            Family family = dbContext.Families.Include(d => d.Adults).Include(d => d.Pets).Include(d => d.Children).First(t => t.Id == familyId);
             Pet toRemove = family.Pets.First(a => a.Name == petName);
-            family.Pets.Remove(toRemove);
-            SaveChanges();
+            dbContext.Families.Include(d => d.Adults).Include(d => d.Pets).Include(d => d.Children).First(t => t.Id == familyId).Pets.Remove(toRemove);
+            await dbContext.SaveChangesAsync();
         }
 
         public IList<Child> GetAllChildren()
         {
+            using FamilyContext dbContext = new FamilyContext();
+
             IList<Child> children = new List<Child>();
-            foreach (var family in Families)
+            foreach (var family in dbContext.Families)
             {
                 foreach (var child in family.Children)
                 {
@@ -178,8 +129,11 @@ namespace Persistence
 
         public IList<Adult> GetAllAdults()
         {
+            using FamilyContext dbContext = new FamilyContext();
+
+
             IList<Adult> adults = new List<Adult>();
-            foreach (var family in Families)
+            foreach (var family in dbContext.Families)
             {
                 foreach (var adult in family.Adults)
                 {
@@ -193,8 +147,10 @@ namespace Persistence
 
         public IList<Pet> GetAllPets()
         {
+            using FamilyContext dbContext = new FamilyContext();
+
             IList<Pet> pets = new List<Pet>();
-            foreach (var family in Families)
+            foreach (var family in dbContext.Families)
             {
                 foreach (var pet in family.Pets)
                 {
